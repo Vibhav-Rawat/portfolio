@@ -1,0 +1,615 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>portfolio</title>
+  <style>
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #f2dfce;
+  --panel: #f3e7da;
+  --text: #3f2f2a;
+  --muted: #5d473c;
+  --accent: #b97b54;
+  --accent-deep: #855b38;
+  --light: #f8f1eb;
+  --line: rgba(89, 60, 45, 0.18);
+  --shadow: rgba(90, 62, 47, 0.08);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.page {
+  width: min(1280px, 100%);
+  min-height: 760px;
+  padding: 0 40px 30px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding-top: 18px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.logo {
+  font-size: clamp(2.2rem, 2vw, 3rem);
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: var(--accent-deep);
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  flex-wrap: wrap;
+  margin: 0 auto;
+}
+
+nav a {
+  position: relative;
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 6px 0;
+  transition: 0.2s ease;
+}
+
+nav a:not(.contact)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -12px;
+  height: 2px;
+  background: var(--accent-deep);
+  border-radius: 2px;
+  width: 0;
+  transition: width 0.2s ease;
+}
+
+nav a.active::after,
+nav a:hover::after {
+  width: 100%;
+}
+
+nav .contact,
+.action-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  font-weight: 700;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+nav .contact {
+  background: rgba(147, 100, 67, 0.2);
+  color: var(--text);
+  padding: 14px 26px;
+  min-width: 150px;
+  border: 1px solid rgba(97, 70, 55, 0.2);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.25);
+}
+
+.home {
+  min-height: calc(100vh - 100px);
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  gap: 72px;
+  padding: 54px 26px 12px;
+}
+
+.photobox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 0;
+}
+
+.photo-frame {
+  position: relative;
+  width: min(580px, 90%);
+  aspect-ratio: 0.9;
+  padding: 18px;
+  border-radius: 50% 50% 44% 56% / 42% 46% 54% 58%;
+  background: rgba(255,255,255,0.14);
+  border: 2px solid rgba(118, 80, 59, 0.7);
+  box-shadow: 0 12px 30px var(--shadow);
+}
+
+.photo-frame::before {
+  content: "";
+  position: absolute;
+  inset: 20px 28px 10px 18px;
+  border: 2px solid rgba(120, 80, 58, 0.28);
+  border-radius: 49% 51% 49% 51% / 45% 48% 52% 55%;
+}
+
+.profile-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 52% 48% 46% 54% / 44% 47% 53% 56%;
+  background: #f1e4d7;
+  transform: scale(1.02);
+}
+
+.introduction-content {
+  max-width: 560px;
+  min-width: 0;
+}
+
+.student-label {
+  color: var(--accent-deep);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 14px;
+}
+
+h1 {
+  margin: 0 0 24px;
+  font-size: clamp(2.8rem, 3vw, 4.2rem);
+  line-height: 1.08;
+  letter-spacing: -0.06em;
+  font-weight: 600;
+  color: var(--text);
+}
+
+h1 span,
+.role span {
+  color: var(--accent-deep);
+  font-style: italic;
+  font-weight: 700;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.role {
+  color: var(--accent-deep);
+  font-style: italic;
+  font-weight: 700;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  margin-bottom: 17px;
+}
+
+.intro-text {
+  margin: 0 0 28px;
+  color: var(--muted);
+  line-height: 1.7;
+  font-size: 1.02rem;
+}
+
+.contact-shortcuts {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+.contact-shortcuts a {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--light);
+  border: 1px solid rgba(120, 80, 58, 0.7);
+  color: var(--accent-deep);
+  font-size: 1.2rem;
+  font-weight: 700;
+  box-shadow: 0 5px 12px rgba(106, 72, 58, 0.08);
+  transition: transform 0.2s ease;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.action-link {
+  background: rgba(147, 100, 67, 0.18);
+  color: var(--text);
+  border: 1px solid rgba(97, 70, 55, 0.3);
+  padding: 12px 28px;
+  min-width: 160px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.18);
+}
+
+.contact:hover,
+.action-link:hover,
+.contact-shortcuts a:hover {
+  transform: translateY(-2px);
+}
+
+/* Other sections */
+section:not(.home) {
+  padding: 72px 0;
+  border-top: 1px solid var(--line);
+}
+
+.heading {
+  color: var(--accent-deep);
+  font-size: 2rem;
+  margin-bottom: 16px;
+}
+
+.section-description {
+  max-width: 720px;
+  line-height: 1.8;
+  color: var(--muted);
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 25px;
+}
+
+.box {
+  padding: 23px;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.box h3 {
+  color: var(--accent-deep);
+  margin-bottom: 10px;
+}
+
+.box p {
+  color: var(--muted);
+  line-height: 1.65;
+  font-size: 0.94rem;
+}
+
+.box p + p {
+  margin-top: 9px;
+}
+
+.box strong {
+  color: var(--accent-deep);
+}
+
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.skill-item {
+  padding: 9px 14px;
+  border: 1px solid rgba(120, 80, 58, 0.34);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.55);
+  font-size: 0.9rem;
+}
+
+.education-table {
+  margin-top: 24px;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.65);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  min-width: 620px;
+}
+
+th,
+td {
+  padding: 15px 17px;
+  border-bottom: 1px solid var(--line);
+  line-height: 1.5;
+}
+
+th {
+  color: var(--accent-deep);
+  background: var(--panel);
+}
+
+tr:last-child td {
+  border-bottom: 0;
+}
+
+footer {
+  padding: 24px 0 32px;
+  color: var(--muted);
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+@media (max-width: 980px) {
+  .page {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  nav {
+    justify-content: center;
+  }
+
+  .home {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    text-align: center;
+  }
+
+  .introduction-content {
+    margin: 0 auto;
+  }
+
+  .contact-shortcuts,
+  .hero-actions {
+    justify-content: center;
+  }
+
+  .content-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .page {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .home {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  nav {
+    gap: 14px 20px;
+  }
+}
+
+  </style>
+</head>
+<body>
+  
+  <div class="page">
+    <header>
+      <a class="logo" href="#home">portfolio</a>
+      <nav aria-label="Main navigation">
+        <a class="active" href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#education">Education</a>
+        <a href="#projects">Projects</a>
+        <a href="#achievements">Achievements</a>
+        <a href="#contact" class="contact">Contact Me</a>
+      </nav>
+    </header>
+
+    <main>
+      <!-- HOME -->
+      <section class="home" id="home">
+        <div class="photobox">
+          <div class="photo-frame">
+            <!-- Note: remember to make sure image name matches file -->
+            <img class="profile-photo" src="my-photo.png" alt="Portrait of Vibhav" />
+          </div>
+        </div>
+
+        <div class="introduction-content">
+          <div class="student-label">BTech Student · Developer</div>
+          <h1>Hey, I'm <span>Vibhav</span></h1>
+          <div class="role">Aspiring <span>Software Developer</span></div>
+          <p class="intro-text">
+            I am studying B.Tech at KIET. I have been learning Python, SQL, HTML and CSS, and I like making small projects to understand how software works.
+          </p>
+          <div class="contact-shortcuts" aria-label="Social links">
+            <a href="#contact" aria-label="Contact details" title="Contact details">@</a>
+            <a href="https://github.com/Vibhav-Rawat" target="_blank" aria-label="GitHub profile" title="GitHub">GH</a>
+            <a href="https://www.linkedin.com/in/vibhav-singh-rawat-851355425/" target="_blank" aria-label="LinkedIn profile" title="LinkedIn">in</a>
+          </div>
+          <div class="hero-actions">
+            <a class="action-link" href="#projects">View Projects</a>
+            <a class="action-link secondary" href="#contact">Contact Me</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- About Section -->
+      <section id="about">
+        <h2 class="heading">About Me</h2>
+        <p class="section-description">
+          I am a first-year B.Tech student at KIET and I am still learning the basics of programming and web development. I have used Python and MySQL for a shop management project, and I am working on a pronunciation practice program in Python. I am also interested in AI and want to understand how these tools work instead of only using them.
+        </p>
+        <div class="content-grid">
+          <article class="box">
+            <h3>Career Objective</h3>
+            <p>To improve my coding skills by building projects, finding mistakes, and learning how to fix them.</p>
+          </article>
+          <article class="box">
+            <h3>Interests</h3>
+            <p>Python projects, AI/ML, cloud technology, and understanding how computer systems work.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- Skills Section -->
+      <section id="skills">
+        <h2 class="heading">Skills</h2>
+        <p class="section-description">These are the languages and tools I have studied or am practising. I am still learning, so this list will change as I gain experience.</p>
+        <div class="skills-list">
+          <span class="skill-item">Python</span>
+          <span class="skill-item">C</span>
+          <span class="skill-item">HTML</span>
+          <span class="skill-item">CSS</span>
+          <span class="skill-item">SQL / MySQL</span>
+          <span class="skill-item">Git & GitHub</span>
+          <span class="skill-item">Problem Solving</span>
+          <span class="skill-item">JavaScript (learning)</span>
+        </div>
+      </section>
+
+      <!-- Education Section -->
+      <section id="education">
+        <h2 class="heading">Education</h2>
+        <p class="section-description">My education details are listed below. Replace the bracketed parts with your correct school, year and result before submitting the page.</p>
+        <div class="education-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Qualification</th>
+                <th>Institute</th>
+                <th>Year</th>
+                <th>Result</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>B.Tech — [Branch / Department]</td>
+                <td>KIET Group of Institutions</td>
+                <td>2026-2030</td>
+                <td>not yet</td>
+              </tr>
+              <tr>
+                <td>Class XII — PCM / Computer Science</td>
+                <td>Vivekanand School</td>
+                <td>2026</td>
+                <td>88%</td>
+              </tr>
+              <tr>
+                <td>Class X</td>
+                <td>St. Thomas School</td>
+                <td>2024</td>
+                <td>88%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Projects Section -->
+      <section id="projects">
+        <h2 class="heading">Projects</h2>
+        <p class="section-description">These are projects I have worked on or am currently building. The descriptions focus on what I built and the tools I used.</p>
+        <div class="content-grid">
+          <article class="box">
+            <h3>Speak Right - Pronunciation Trainer</h3>
+            <p><strong>Description:</strong> A Python terminal application for practising English words, recording attempts, and reviewing practice history.</p>
+            <p><strong>Technologies:</strong> Python, SQLite, speech/audio libraries, Rich.</p>
+          </article>
+          <article class="box">
+            <h3>Retail Shop Management System</h3>
+            <p><strong>Description:</strong> A console-based system for managing products, stock, customer purchases, and sales records.</p>
+            <p><strong>Technologies:</strong> Python, MySQL.</p>
+          </article>
+          <article class="box">
+            <h3>Live Translation</h3>
+            <p><strong>Description:</strong> Currently building a speech translation application that converts spoken language into another language, helping people communicate across language barriers.</p>
+            <p><strong>Technologies:</strong> Python, speech recognition, language translation, text-to-speech.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- Achievements Section -->
+      <section id="achievements">
+        <h2 class="heading">Achievements & Certifications</h2>
+        <p class="section-description">I will add verified certificates and achievements here as I earn them.</p>
+        <div class="content-grid">
+          <article class="box">
+            <h3>Elements of AI</h3>
+            <p><strong>Issuer:</strong> University of Helsinki and MinnaLearn</p>
+            <p><strong>Focus:</strong> AI fundamentals, real-world applications, and the capabilities and limitations of AI.</p>
+            <p><strong>Completed:</strong> May 2026</p>
+          </article>
+          <article class="box">
+            <h3>Kaggle Learn</h3>
+            <p><strong>Platform:</strong> Kaggle</p>
+            <p><strong>Focus:</strong> Practical, short-form learning in Python. </p>
+            <p><strong>Completed:</strong> June 2026</p>
+          </article>
+          <article class="box">
+            <h3>CS50 — Harvard University</h3>
+            <p><strong>Issuer:</strong> Harvard University (CS50)</p>
+            <p><strong>Focus:</strong> Python Language fundamentals and computational problem-solving.</p>
+            <p><strong>Completed:</strong> October 2026</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section id="contact">
+        <h2 class="heading">Contact Me</h2>
+        <p class="section-description">
+          You can contact me using the details below.
+        </p>
+        <div class="content-grid">
+          <article class="box">
+            <h3>Email</h3>
+            <p><a href="mailto:vibhav.singh.rawat.678@gmail.com">vibhav.singh.rawat.678@gmail.com</a></p>
+          </article>
+          <article class="box">
+            <h3>Phone</h3>
+            <p><a href="tel:+919289114930">+91 9289114930</a></p>
+          </article>
+        </div>
+      </section>
+    </main>
+    
+    <footer>© 2026 Vibhav. All rights reserved.</footer>
+  </div>
+</body>
+</html>
